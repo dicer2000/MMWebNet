@@ -41,6 +41,7 @@
 
             <p class="lead">How fast can you solve Master Mind?  See if you can top today's leader board.</p>
 
+            <asp:Label ID="lblError" runat="server" Text="" Visible="false" CssClass="alert-danger"></asp:Label>
         </div>
 
         <div class="container">
@@ -77,7 +78,10 @@
                 <asp:Panel ID="pnlGame" Visible="false" runat="server" CssClass="card mb-4 mr-5 ml-5 box-shadow">
                     <div class="card-header">
                         <h4 class="my-0 font-weight-normal">
-                            <asp:Label ID="lblName" runat="server" Text="" CssClass="mr-5"></asp:Label>  1000 pts</h4>
+                            <asp:Label ID="lblName" runat="server" Text="" CssClass="mr-5"></asp:Label>
+                            1000 pts
+
+                        </h4>
                     </div>
 
                     <asp:GridView ID="gvGame" runat="server" AutoGenerateColumns="False" ShowHeader="False" OnRowCommand="gvGame_RowCommand">
@@ -186,7 +190,7 @@
                             </asp:TemplateField>
                         </Columns>
                     </asp:GridView>
-
+                    <asp:Button ID="cmdGiveUp" runat="server" class="btn btn-warning btn-sm" OnClientClick="if(!UserDeleteConfirmation()) return false;" OnClick="cmdDone_Click" Text="I Give Up"></asp:Button>
                 </asp:Panel>
             </div>
         </div>
@@ -211,8 +215,8 @@
                         Hit 'New Game' to have another go.
                     </div>
                     <div class="modal-footer">
-                        <asp:button id="cmdDone" runat="server" class="btn btn-secondary" data-dismiss="modal" OnClick="cmdDone_Click" Text="I'm Done"></asp:button>
-                        <asp:button id="cmdNew" runat="server" class="btn btn-primary" OnClick="cmdNew_Click" text="New Game"></asp:button>
+                        <asp:Button ID="cmdDone" runat="server" class="btn btn-secondary" OnClick="cmdDone_Click" Text="I'm Done"></asp:Button>
+                        <asp:Button ID="cmdNew" runat="server" class="btn btn-primary" OnClick="cmdNew_Click" Text="New Game"></asp:Button>
                     </div>
                 </div>
             </div>
@@ -254,6 +258,9 @@
                 $('#di3').attr('class', 'fas fa-circle butt');
             });
 
+            function UserDeleteConfirmation() {
+                return confirm("Are you sure you want to give up?");
+            }
         </script>
 
         <asp:Literal runat="server" ID="litWinDialog" Visible="false">

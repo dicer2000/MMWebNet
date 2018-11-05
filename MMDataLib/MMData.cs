@@ -22,7 +22,7 @@ namespace MMDataLib
         }
 
 
-        public int P2_MM_Initialize(String strPlayer1)
+        public int P2_MM_Initialize(String strPlayer1, int nNumberColors = 4)
         {
             try
             {
@@ -32,6 +32,7 @@ namespace MMDataLib
                     {
                         sqlCommand.CommandType = CommandType.StoredProcedure;
                         sqlCommand.Parameters.Add("Player1Name", SqlDbType.VarChar).Value = (object)strPlayer1;
+                        sqlCommand.Parameters.Add("NumberOfColors", SqlDbType.Int).Value = (object)nNumberColors;
                         connection.Open();
                         object objVal = sqlCommand.ExecuteScalar();
 

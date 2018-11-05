@@ -59,7 +59,7 @@ namespace MMWeb.net
                 lblName.Text = strPlayer1;
 
                 MMData mmd = new MMData(GetConnectionString());
-                int nGameID = mmd.P2_MM_Initialize(strPlayer1);
+                int nGameID = mmd.P2_MM_Initialize(strPlayer1, 6);
 
                 CreateNewGameBoard(nGameID);
                 hdnGameID.Value = nGameID.ToString();
@@ -155,6 +155,15 @@ namespace MMWeb.net
                 MMData mmd = new MMData(GetConnectionString());
                 DataTable dt = mmd.P2_MM_NewMove(nGameID, nG0, nG1, nG2, nG3);
 
+                if (dt == null || dt.Rows == null || dt.Rows.Count < 1)
+                {
+                    lblError.Text = "This game is complete.  Start a new game.";
+                    lblError.Visible = true;
+                    return;
+                }
+                else
+                    lblError.Visible = false;
+
                 // Get the number of black and white pegs
                 int nNumberCorrectPosition = 0;
                 int nNumberCorrectColor = 0;
@@ -168,6 +177,9 @@ namespace MMWeb.net
                     litWinDialog.Visible = true;
                     return;
                 }
+                else
+                    litWinDialog.Visible = false;
+
 
                 CreateNewGameBoard(nGameID);
 
@@ -178,11 +190,21 @@ namespace MMWeb.net
 
         protected void cmdNew_Click(object sender, EventArgs e)
         {
+            litWinDialog.Visible = false;
 
+            // Start a new game
+            cmdGo_Click(null, null);
         }
 
         protected void cmdDone_Click(object sender, EventArgs e)
         {
+            litWinDialog.Visible = false;
+
+            // Reset entire game
+            txtHandle.Text = "";
+            hdnGameID.Value = "";
+            pnlName.Visible = true;
+            pnlGame.Visible = false;
 
         }
 
