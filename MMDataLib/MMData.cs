@@ -50,7 +50,7 @@ namespace MMDataLib
         }
 
 
-        public DataTable P2_MM_GetBoard(int GameID)
+        public DataSet P2_MM_GetBoard(int GameID)
         {
             using (SqlConnection connection = new SqlConnection(this._connection))
             {
@@ -58,14 +58,14 @@ namespace MMDataLib
                 {
                     sqlCommand.CommandType = CommandType.StoredProcedure;
                     sqlCommand.Parameters.Add("GameID", SqlDbType.Int).Value = (object)GameID;
+
+                    SqlDataAdapter da = new SqlDataAdapter();
+                    da.SelectCommand = sqlCommand;
                     connection.Open();
 
-                    using (SqlDataReader dr = sqlCommand.ExecuteReader())
-                    {
-                        var tb = new DataTable();
-                        tb.Load(dr);
-                        return tb;
-                    }
+                    DataSet ds = new DataSet();
+                    da.Fill(ds);
+                    return ds;
                 }
             }
         }

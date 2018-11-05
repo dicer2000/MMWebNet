@@ -78,7 +78,19 @@ namespace MMWeb.net
         {
             MMData mmd = new MMData(GetConnectionString());
             // Get this game's board
-            DataTable dt = mmd.P2_MM_GetBoard(GameID);
+            DataSet ds = mmd.P2_MM_GetBoard(GameID);
+
+            if (ds == null || ds.Tables.Count < 1 || ds.Tables[0].Rows.Count < 1)
+                throw new Exception("Game not found");
+
+            // The first table has the Game Info
+            DataTable dtGame = ds.Tables[0];
+            // Fill the game info
+            lblName.Text = ds.Tables[0].Rows[0]["Player1"].ToString();
+
+            // The second table has the Game Board layout
+            DataTable dt = ds.Tables[1];
+
             int guessRow = dt.Rows.Count;
             int origRow = guessRow;
 
@@ -142,9 +154,37 @@ namespace MMWeb.net
                 // Create the connection to the DB and insert it
                 MMData mmd = new MMData(GetConnectionString());
                 DataTable dt = mmd.P2_MM_NewMove(nGameID, nG0, nG1, nG2, nG3);
+
+                // Get the number of black and white pegs
+                int nNumberCorrectPosition = 0;
+                int nNumberCorrectColor = 0;
+                if (dt.Rows[0]["NumberCorrectPosition"] != null)
+                    nNumberCorrectPosition = (int)dt.Rows[0]["NumberCorrectPosition"];
+                if (dt.Rows[0]["NumberCorrectColor"] != null)
+                    nNumberCorrectColor = (int)dt.Rows[0]["NumberCorrectColor"];
+
+                if(nNumberCorrectPosition==4)
+                {
+                    litWinDialog.Visible = true;
+                    return;
+                }
+
                 CreateNewGameBoard(nGameID);
+
+
             }
 
         }
+
+        protected void cmdNew_Click(object sender, EventArgs e)
+        {
+
+        }
+
+        protected void cmdDone_Click(object sender, EventArgs e)
+        {
+
+        }
+
     }
 }

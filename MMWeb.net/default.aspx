@@ -77,7 +77,7 @@
                 <asp:Panel ID="pnlGame" Visible="false" runat="server" CssClass="card mb-4 mr-5 ml-5 box-shadow">
                     <div class="card-header">
                         <h4 class="my-0 font-weight-normal">
-                            <asp:Label ID="lblName" runat="server" Text=""></asp:Label>1000 pts</h4>
+                            <asp:Label ID="lblName" runat="server" Text="" CssClass="mr-5"></asp:Label>  1000 pts</h4>
                     </div>
 
                     <asp:GridView ID="gvGame" runat="server" AutoGenerateColumns="False" ShowHeader="False" OnRowCommand="gvGame_RowCommand">
@@ -199,6 +199,25 @@
             </div>
         </footer>
 
+        <!-- Modal -->
+        <div class="modal fade" id="modelWin" tabindex="-1" role="dialog" aria-labelledby="exampleModalCenterTitle" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLongTitle">Congratulations - You've Won!</h5>
+                    </div>
+                    <div class="modal-body">
+                        You got it in xxx guesses.  Great job - that adds xxx to your daily score.
+                        Hit 'New Game' to have another go.
+                    </div>
+                    <div class="modal-footer">
+                        <asp:button id="cmdDone" runat="server" class="btn btn-secondary" data-dismiss="modal" OnClick="cmdDone_Click" Text="I'm Done"></asp:button>
+                        <asp:button id="cmdNew" runat="server" class="btn btn-primary" OnClick="cmdNew_Click" text="New Game"></asp:button>
+                    </div>
+                </div>
+            </div>
+        </div>
+
         <script type="text/javascript" src="https://code.jquery.com/jquery-3.3.1.min.js"></script>
         <script type="text/javascript" src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.bundle.min.js"></script>
         <script type="text/javascript">
@@ -234,7 +253,20 @@
                 $('#di3').attr('style', 'color: ' + color);
                 $('#di3').attr('class', 'fas fa-circle butt');
             });
+
         </script>
+
+        <asp:Literal runat="server" ID="litWinDialog" Visible="false">
+            <script type="text/javascript">
+
+                $('#modelWin').modal({
+                    keyboard: false
+                });
+            </script>
+        </asp:Literal>
+
+
+
     </form>
 
 </body>
