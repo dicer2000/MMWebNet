@@ -31,6 +31,7 @@ namespace MMWeb.net
         {
             if (!IsPostBack)
             {
+
                 if (Request.QueryString["DebugGameID"] != null)
                 {
                     // Load a game and show
@@ -167,13 +168,16 @@ namespace MMWeb.net
                 // Get the number of black and white pegs
                 int nNumberCorrectPosition = 0;
                 int nNumberCorrectColor = 0;
-                if (dt.Rows[0]["NumberCorrectPosition"] != null)
+                if (dt.Rows[0]["NumberCorrectPosition"] != null && 
+                    dt.Rows[0]["NumberCorrectPosition"] != System.DBNull.Value)
                     nNumberCorrectPosition = (int)dt.Rows[0]["NumberCorrectPosition"];
-                if (dt.Rows[0]["NumberCorrectColor"] != null)
+                if (dt.Rows[0]["NumberCorrectColor"] != null &&
+                    dt.Rows[0]["NumberCorrectColor"] != System.DBNull.Value)
                     nNumberCorrectColor = (int)dt.Rows[0]["NumberCorrectColor"];
 
                 if(nNumberCorrectPosition==4)
                 {
+                    lblNoGuesses.Text = (index+1).ToString();
                     litWinDialog.Visible = true;
                     return;
                 }

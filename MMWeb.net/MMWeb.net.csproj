@@ -255,6 +255,7 @@
       <DependentUpon>default.aspx</DependentUpon>
     </Compile>
     <Compile Include="lib\Helper.cs" />
+    <Compile Include="lib\MMData.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -380,18 +381,13 @@
     <Content Include="script\jquery\dist\jquery.slim.min.map" />
     <Content Include="script\jquery\external\sizzle\dist\sizzle.min.map" />
     <Content Include="script\jquery\src\.eslintrc.json" />
+    <None Include="Properties\PublishProfiles\FolderProfile.pubxml" />
     <None Include="Web.Debug.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
     <None Include="Web.Release.config">
       <DependentUpon>Web.config</DependentUpon>
     </None>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\MMDataLib\MMDataLib.csproj">
-      <Project>{589c8cb7-d12f-4157-aeff-8daecbf028dc}</Project>
-      <Name>MMDataLib</Name>
-    </ProjectReference>
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

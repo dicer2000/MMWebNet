@@ -211,7 +211,7 @@
                         <h5 class="modal-title" id="exampleModalLongTitle">Congratulations - You've Won!</h5>
                     </div>
                     <div class="modal-body">
-                        You got it in xxx guesses.  Great job - that adds xxx to your daily score.
+                        You got it in <asp:Label ID="lblNoGuesses" runat="server" Text="Label"></asp:Label> guesses.  Great job - that adds xxx to your daily score.
                         Hit 'New Game' to have another go.
                     </div>
                     <div class="modal-footer">
